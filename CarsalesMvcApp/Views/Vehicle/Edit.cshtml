@@ -1,0 +1,118 @@
+﻿@model CarsalesDataAccess.vehicle
+@{
+    ViewBag.Title = "Vehicles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body>
+    <div class="container" style="align-content:center;">
+        <h2>Edit Vehicle</h2>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.Id)
+            
+                <div class="form-group">
+                        @Html.LabelFor(model => model.Make, new { @class = "control-label col-md-2" })
+                        @Html.TextBoxFor(model => model.Make, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Make)
+         
+                </div>
+                <div class="form-group">
+                        @Html.LabelFor(model => model.Model, new { @class = "control-label col-md-2" })
+                        @Html.TextBoxFor(model => model.Model, new { @class = "form-control" } )
+                        @Html.ValidationMessageFor(model => model.Model)
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Type, new { @class = "control-label col-md-2" })
+                    @Html.TextBoxFor(model => model.Type, new { @class = "form-control", disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.Model)
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Engine, new { @class = "control-label col-md-2" })
+                   
+                        @Html.TextBoxFor(model => model.Engine, new { @class = "form-control" } )
+                        @Html.ValidationMessageFor(model => model.Engine)
+            
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Doors, new { @class = "control-label col-md-2" })
+                
+                        @Html.TextBoxFor(model => model.Doors, new { @class = "form-control" } )
+                        @Html.ValidationMessageFor(model => model.Doors)
+   
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Wheels, new { @class = "control-label col-md-2" })
+                   
+                        @Html.TextBoxFor(model => model.Wheels, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Doors)
+           
+                </div>
+
+             
+
+
+        }
+
+        <input type="button" id="EditButton" value="Edit Vehicl" />
+      
+       </div>
+</body>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#EditButton").click(function () {
+
+            alert("button click");
+          //  1	BMW	2016 BMW 318i M Sport F30 LCI Auto	3 cylinder Petrol Turbo Intercooled 1.5L	4	4	sedan	1
+            var vehicle = new Object();
+            vehicle.Id = 1;
+            vehicle.Make = "BMW";
+            vehicle.Model = "wqeqweqwe";
+            vehicle.Engine = "asdadas";
+            vehicle.doors = 3;
+            vehicle.wheels = 5;
+            vehicle.Type = "car";
+
+            var vehicle = new {
+                Id: 1,
+                Make: "BMW",
+                Model: "wqeqweqwe",
+                Engine: "asdadas",
+                doors: "3",
+                wheels: "5",
+                Type: "car"
+            };
+
+            alert(vehicle);
+
+
+            $.ajax({
+                type: "POST",
+                crossDomain: true,
+                data: vehicle,
+                contentType: "application/json",
+                url: 'http://localhost:56052/api/vehicle/update',
+                success: function (result) {
+                    console.log(result);
+                }
+            });
+
+
+            $.post("http://localhost:56052/api/vehicle/update", vehicle, function (data) {
+                console.log(data);
+            });
+
+        });
+        
+    });
+
+</script>

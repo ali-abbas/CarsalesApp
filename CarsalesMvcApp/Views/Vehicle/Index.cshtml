@@ -1,0 +1,77 @@
+﻿@model IEnumerable<CarsalesDataAccess.vehicle>
+@{
+    ViewBag.Title = "Vehicles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<body>
+
+    <div class="container-fluid">
+
+        <div class="jumbotron">
+            <div class="container text-center">
+                <h1>Vehicles Sales</h1>
+                <p>Mission, Vission & Values</p>
+            </div>
+        </div>
+
+        @{
+            int i = 1;
+            var imgUrl = "~/Veh_Images/";
+        }
+
+        @foreach (var objVeh in Model)
+            {
+                if ((i % 3) == 0)
+                {
+                   @:<div class="container"><div class="row">
+                }
+             <div class="col-sm-4">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">@objVeh.Model</div>
+                            <div class="panel-body"><img src="~/Veh_Images/car1.jpeg" class="img-responsive" style="width:100%" alt="Image"></div>
+                            <div class="panel-footer">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Make</th>
+                                            <th>Engine</th>
+                                            <th>Wheels</th>
+                                            <th>@(objVeh.VehType.ToString().Equals("1") ? "Car Type" : "Bike Type")
+                                            <th>Doors</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>@objVeh.Make</td>
+                                            <td>@objVeh.Engine</td>
+                                            <td>@objVeh.Wheels.ToString()</td>
+                                            <td>@objVeh.Type.ToString()</td>
+                                            <td>@objVeh.Doors.ToString()</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div style="float:right;">
+                                                    @Html.ActionLink("Edit", "Edit", "Vehicle", new { id = objVeh.Id.ToString(), Type = objVeh.VehType }, new { @class = "btn btn-primary" })
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                               
+
+                            </div>
+                        </div></div>
+
+              if((i%3) == 0){
+                    @:</div></div><br />
+
+            }
+
+            i++;
+        }
+                  
+            </div>
+</body>
